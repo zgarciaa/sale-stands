@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-export const SaleForm: React.FC = () => {
+export const SaleStandForm: React.FC = () => {
   const { name, price, numExpositors } = useParams();
   const _price = price
     ? parseInt(price).toLocaleString("es-CO", {

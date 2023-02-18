@@ -21,12 +21,12 @@ export const Navbar: React.FC = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
-            <li className="nav-item">
+            <li className="nav-item mx-2">
               <Link className="nav-link active" aria-current="page" to="/">
                 Inicio
               </Link>
             </li>
-            <li className="nav-item dropdown">
+            <li className="nav-item dropdown mx-2">
               <Link
                 className="nav-link dropdown-toggle"
                 to="#"
@@ -60,9 +60,14 @@ export const Navbar: React.FC = () => {
                 </li>
               </ul>
             </li>
-            <li className="nav-item">
+            <li className="nav-item mx-2">
               <Link className="nav-link" to="/">
                 Historial de Ventas
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/createStand">
+                Crear Stand
               </Link>
             </li>
           </ul>

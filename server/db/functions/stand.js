@@ -1,5 +1,23 @@
 const { Stand } = require("../models");
 
+const createStand = async (stand) => {
+  try {
+    const newStand = await Stand.create(stand);
+    return newStand.id;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+const newStand = async (stand) => {
+  try {
+    const newStand = await createStand(stand);
+    console.log("Stand created, ID:", newStand);
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 const getAllStands = async () => {
   try {
     const stands = await Stand.findAll({
@@ -23,4 +41,4 @@ const getStandsByCategory = async (category) => {
   }
 };
 
-module.exports = { getAllStands, getStandsByCategory };
+module.exports = { getAllStands, getStandsByCategory, newStand };

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ListStands } from "./components/ListStands";
 import { Stand, getAllStands } from "./utils/stands";
-import { StandsByCategory } from "./components/StandsByCategory";
 
 export function App() {
   const [stands, setStands] = useState<Array<Stand>>([]);
@@ -12,7 +11,7 @@ export function App() {
 
   useEffect(() => {
     getStands();
-  }, []);
+  }, [stands]);
 
   return (
     <>

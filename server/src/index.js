@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const { initDb } = require("../db/database");
-const { getAllStands, getStandsByCategory } = require("../db/functions");
+const { getAllStands, getStandsByCategory } = require("../db/functions/stand");
 
 dotenv.config();
 

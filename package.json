@@ -1,0 +1,19 @@
+{
+  "name": "sale-stands",
+  "version": "1.0.0",
+  "description": "This is a web application that provides detailed control over stand information, sales, and client registration. The app also allows for the registration of exhibitor data associated with each stand.",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd server && node src/index.js\" \"cd client && npm run dev\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zgarciaa/sale-stands.git"
+  },
+  "author": "Nicolas Garcia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zgarciaa/sale-stands/issues"
+  },
+  "homepage": "https://github.com/zgarciaa/sale-stands#readme"
+}

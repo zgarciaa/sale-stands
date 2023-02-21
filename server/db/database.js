@@ -5,10 +5,12 @@ const createRoles = async () => {
     const roleCount = await Role.count();
     if (roleCount === 0) {
       await Role.bulkCreate([
-        { name: "Trabajador" },
+        { name: "Cliente Stand" },
         { name: "Expositor" },
-        { name: "General" },
-        { name: "Cortesia" },
+        { name: "Trabajador" },
+        { name: "Socio" },
+        { name: "Prensa" },
+        { name: "Cortesía" },
       ]);
       console.log("Roles added succesfully");
       return;
@@ -24,10 +26,10 @@ const createTestOperators = async () => {
     const operatorCount = await Operator.count();
     if (operatorCount === 0) {
       await Operator.bulkCreate([
-        { username: "username_1", password: "password_1" },
-        { username: "username_2", password: "password_2" },
-        { username: "username_3", password: "password_3" },
-        { username: "username_4", password: "password_4" },
+        { username: "username1", password: "1234" },
+        { username: "username2", password: "1234" },
+        { username: "username3", password: "1234" },
+        { username: "username4", password: "1234" },
       ]);
       console.log("Test Operators added succesfully");
       return;

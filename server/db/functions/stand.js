@@ -41,4 +41,19 @@ const getStandsByCategory = async (category) => {
   }
 };
 
-module.exports = { getAllStands, getStandsByCategory, newStand };
+const getStandById = async (id) => {
+  try {
+    const stand = await Stand.findByPk(id, {
+      attributes: { exclude: ["createdAt", "updatedAt"] },
+    });
+    if (!stand) {
+      console.log(`Stand with ID: ${id} doesn't exists`);
+      return;
+    }
+    return stand;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+module.exports = { getStandById, getAllStands, getStandsByCategory, newStand };

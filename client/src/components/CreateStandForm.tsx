@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { createNewStand } from "../utils/stands";
 
 export const CreateStandForm: React.FC = () => {
@@ -6,23 +6,6 @@ export const CreateStandForm: React.FC = () => {
   const [price, setPrice] = useState<number | null>(null);
   const [numExpositors, setNumExpositors] = useState<number | null>(null);
   const [category, setCategory] = useState("");
-
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-  };
-  const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPrice(parseInt(event.target.value));
-  };
-  const handleNumExpositorsChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setNumExpositors(parseInt(event.target.value));
-  };
-  const handleCategoryChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    setCategory(event.target.value);
-  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -57,7 +40,7 @@ export const CreateStandForm: React.FC = () => {
             placeholder="Ingrese el nombre"
             name="_name"
             value={name}
-            onChange={handleNameChange}
+            onChange={(event) => setName(event.target.value)}
           />
         </div>
         <div className="form-group mt-3">
@@ -69,7 +52,7 @@ export const CreateStandForm: React.FC = () => {
             placeholder="Ingrese el valor"
             name="value"
             value={price ? price : ""}
-            onChange={handlePriceChange}
+            onChange={(event) => setPrice(parseInt(event.target.value))}
           />
         </div>
         <div className="form-group mt-3">
@@ -81,19 +64,19 @@ export const CreateStandForm: React.FC = () => {
             placeholder="Ingrese el número de expositores"
             name="numExpositors"
             value={numExpositors ? numExpositors : ""}
-            onChange={handleNumExpositorsChange}
+            onChange={(event) => setNumExpositors(parseInt(event.target.value))}
           />
         </div>
         <div className="form-group mt-3">
-          <label htmlFor="rol" className="mb-1">
+          <label htmlFor="category" className="mb-1">
             Categoria del Stand:
           </label>
           <select
             className="form-select form-select-lg form-select-arrow"
-            id="role"
-            name="rol"
+            id="category"
+            name="category"
             value={category}
-            onChange={handleCategoryChange}
+            onChange={(event) => setCategory(event.target.value)}
           >
             <option value="" disabled>
               Seleccione una Categoría

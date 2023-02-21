@@ -6,6 +6,7 @@ const createFingerprint = async (fingerprint) => {
     return newFingerprint.id;
   } catch (e) {
     console.error(e);
+    return false;
   }
 };
 

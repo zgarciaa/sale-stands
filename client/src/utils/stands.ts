@@ -3,20 +3,17 @@ export interface Stand {
   name: string;
   price: number;
   numExpositors: number;
-  isAvailable?: boolean;
+  isAvailable: boolean;
   category: string;
 }
 
-interface StandData {
-  name: string;
-  price: number;
-  numExpositors: number;
-  category: string;
-}
+interface CreateStand extends Omit<Stand, "id" | "isAvailable"> {}
 
-export const createNewStand = async (stand: StandData) => {
+const baseUrl = "http://localhost:3001/stands";
+
+export const createNewStand = async (stand: CreateStand) => {
   try {
-    const response = await fetch("http://localhost:3001/stands", {
+    const response = await fetch(baseUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +29,7 @@ export const createNewStand = async (stand: StandData) => {
 
 export const getAllStands = async (): Promise<Array<Stand>> => {
   try {
-    const response = await fetch("http://localhost:3001/stands");
+    const response = await fetch(baseUrl);
     const data = await response.json();
     return data;
   } catch (e) {
@@ -45,11 +42,21 @@ export const getStandsByCategory = async (
   category: Stand["category"]
 ): Promise<Array<Stand>> => {
   try {
-    const response = await fetch(`http://localhost:3001/stands/${category}`);
+    const response = await fetch(`${baseUrl}/categories/${category}`);
     const data = await response.json();
     return data;
   } catch (e) {
     console.error(e);
     return [];
+  }
+};
+
+export const getStandById = async (standId: number) => {
+  try {
+    const response = await fetch(`${baseUrl}/${standId}`);
+    const data = await response.json();
+    return data;
+  } catch (e) {
+    console.error(e);
   }
 };

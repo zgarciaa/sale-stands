@@ -10,7 +10,7 @@ const Fingerprint = dbConnection.define("Fingerprint", {
   template: {
     type: DataTypes.BLOB,
     allowNull: false,
-    unique: true,
+    unique: false,
   },
 });
 
@@ -45,14 +45,16 @@ const User = dbConnection.define("User", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  document: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    unique: true,
-  },
 });
 
 const Role = dbConnection.define("Role", {
+  /* 
+  Clientes stand y expositores
+  Trabajadores
+  Socios
+  Prensa
+  Cortesia
+  */
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,

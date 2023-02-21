@@ -40,22 +40,27 @@ export const Navbar: React.FC = () => {
               <ul className="dropdown-menu">
                 <li>
                   <Link className="dropdown-item" to="/stands/Categoria1">
-                    Categoría 1
+                    Categoría S
                   </Link>
                 </li>
                 <li>
                   <Link className="dropdown-item" to="/stands/Categoria2">
-                    Categoría 2
+                    Categoría K
                   </Link>
                 </li>
                 <li>
                   <Link className="dropdown-item" to="/stands/Categoria3">
-                    Categoría 3
+                    Categoría C
                   </Link>
                 </li>
                 <li>
                   <Link className="dropdown-item" to="/stands/Categoria4">
-                    Categoría 4
+                    Categoría ILV
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/stands/Categoria4">
+                    Categoría Bav
                   </Link>
                 </li>
               </ul>
@@ -68,6 +73,16 @@ export const Navbar: React.FC = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/createStand">
                 Crear Stand
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/mapStands">
+                Ver Mapa
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/registerUser">
+                Registro
               </Link>
             </li>
           </ul>

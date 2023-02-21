@@ -8,6 +8,9 @@ import { Navbar } from "./components/Navbar";
 import { SaleStandForm } from "./components/SaleStandForm";
 import { StandsByCategory } from "./components/StandsByCategory";
 import { CreateStandForm } from "./components/CreateStandForm";
+import { MapStands } from "./components/MapStands";
+import { Login } from "./components/Login";
+import { RegisterUserForm } from "./components/RegisterUserForm";
 
 const routes = (
   <Routes>
@@ -18,6 +21,9 @@ const routes = (
     />
     <Route path="/stands/:category" element={<StandsByCategory />} />
     <Route path="/createStand" element={<CreateStandForm />} />
+    <Route path="/mapStands" element={<MapStands />} />
+    <Route path="/login" element={<Login />} />
+    <Route path="/registerUser" element={<RegisterUserForm />} />
   </Routes>
 );
 

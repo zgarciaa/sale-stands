@@ -1,5 +1,7 @@
 const { User } = require("../models");
+const { createFingerprint } = require("./fingerprint");
 
+/* 
 const createUser = async (user) => {
   try {
     const newUser = await User.create(user);
@@ -8,6 +10,7 @@ const createUser = async (user) => {
     console.error(e);
   }
 };
+*/
 
 const newUser = async (user, template) => {
   try {
@@ -17,12 +20,12 @@ const newUser = async (user, template) => {
       },
     });
     if (!_user) {
-      const userId = await createUser(user);
+      const newUser = await User.create(user);
       const fingerprintId = await createFingerprint({
         template: template,
-        ownerId: userId,
+        ownerId: newUser.id,
       });
-      console.log("User created: ", userId, fingerprintId);
+      console.log("User created: ", newUser.id, fingerprintId);
     } else {
       console.log("User already exists");
       return;
@@ -32,4 +35,24 @@ const newUser = async (user, template) => {
   }
 };
 
-module.exports = { newUser };
+const createUser = async (user) => {
+  try {
+    const newUser = await User.create(user);
+    const fingerprintId = await createFingerprint({
+      ownerId: newUser.id,
+      template: 0xff,
+    });
+
+    if (!fingerprintId) {
+      console.log("Error creating Fingerprint");
+      return;
+    }
+    console.log(
+      `User created succesfully User ID: ${newUser.id} Fingerprint ID: ${fingerprintId}`
+    );
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+module.exports = { newUser, createUser };

@@ -81,10 +81,11 @@ export const CreateStandForm: React.FC = () => {
             <option value="" disabled>
               Seleccione una Categoría
             </option>
-            <option value="Categoria1">Categoria1</option>
-            <option value="Categoria2">Categoria2</option>
-            <option value="Categoria3">Categoria3</option>
-            <option value="Categoria4">Categoria4</option>
+            <option value="S">Categoria S</option>
+            <option value="K">Categoria K</option>
+            <option value="C">Categoria C</option>
+            <option value="ILV">Categoria ILV</option>
+            <option value="Bav">Categoria Bav</option>
           </select>
         </div>
         <div className="text-center mt-4">

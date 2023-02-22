@@ -48,7 +48,7 @@ const getStandById = async (id) => {
     });
     if (!stand) {
       console.log(`Stand with ID: ${id} doesn't exists`);
-      return;
+      return false;
     }
     return stand;
   } catch (e) {
@@ -56,4 +56,44 @@ const getStandById = async (id) => {
   }
 };
 
-module.exports = { getStandById, getAllStands, getStandsByCategory, newStand };
+const standSold = async (id) => {
+  try {
+    const stand = await Stand.findOne({
+      where: {
+        id: id,
+      },
+    });
+    const standUpdated = await stand.update({
+      isAvailable: false,
+    });
+    console.log("Stand Sold updated succesfully");
+    return standUpdated;
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
+};
+
+const updateStand = async (id, params) => {
+  try {
+    const stand = await Stand.findOne({
+      where: {
+        id: id,
+      },
+    });
+    const standUpdated = await stand.update(params);
+    console.log("Stand updated succesfully");
+    return standUpdated;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+module.exports = {
+  getStandById,
+  getAllStands,
+  getStandsByCategory,
+  newStand,
+  standSold,
+  updateStand
+};

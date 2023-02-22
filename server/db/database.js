@@ -1,4 +1,12 @@
-const { Operator, Role, User, Fingerprint, Stand, Sale } = require("./models");
+const {
+  Operator,
+  Role,
+  User,
+  Fingerprint,
+  Stand,
+  Sale,
+  ClientStand,
+} = require("./models");
 
 const createRoles = async () => {
   try {
@@ -41,171 +49,38 @@ const createTestOperators = async () => {
 };
 
 const createTestStands = async () => {
+  let testStands = [];
+  let standCounts = { S: 0, K: 0, C: 0, ILV: 0, Bav: 0 };
   try {
     const standCount = await Stand.count();
     if (standCount === 0) {
-      await Stand.bulkCreate([
-        {
-          id: 1,
-          name: "Stand1",
-          price: 10000,
-          numExpositors: 1,
-          isAvailable: false,
-          category: "Categoria1",
-        },
-        {
-          id: 2,
-          name: "Stand2",
-          price: 10000,
-          numExpositors: 2,
+      for (let i = 1; i <= 100; i++) {
+        const category =
+          i <= 50
+            ? "S"
+            : i <= 70
+            ? "K"
+            : i <= 80
+            ? "C"
+            : i <= 90
+            ? "ILV"
+            : "Bav";
+        const count = ++standCounts[category];
+        const name = `${category}${count}`;
+
+        const stand = {
+          id: i,
+          name: name,
+          price: Math.floor(Math.random() * 9 + 2) * 50000,
+          numExpositors: Math.floor(Math.random() * 10) + 1,
           isAvailable: true,
-          category: "Categoria1",
-        },
-        {
-          id: 3,
-          name: "Stand3",
-          price: 10000,
-          numExpositors: 2,
-          isAvailable: true,
-          category: "Categoria1",
-        },
-        {
-          id: 4,
-          name: "Stand4",
-          price: 20000,
-          numExpositors: 3,
-          isAvailable: false,
-          category: "Categoria1",
-        },
-        {
-          id: 5,
-          name: "Stand5",
-          price: 20000,
-          numExpositors: 3,
-          isAvailable: true,
-          category: "Categoria1",
-        },
-        {
-          id: 6,
-          name: "Stand6",
-          price: 20000,
-          numExpositors: 3,
-          isAvailable: false,
-          category: "Categoria2",
-        },
-        {
-          id: 7,
-          name: "Stand7",
-          price: 50000,
-          numExpositors: 3,
-          isAvailable: true,
-          category: "Categoria2",
-        },
-        {
-          id: 8,
-          name: "Stand8",
-          price: 50000,
-          numExpositors: 4,
-          isAvailable: false,
-          category: "Categoria2",
-        },
-        {
-          id: 9,
-          name: "Stand9",
-          price: 50000,
-          numExpositors: 4,
-          isAvailable: true,
-          category: "Categoria2",
-        },
-        {
-          id: 10,
-          name: "Stand10",
-          price: 100000,
-          numExpositors: 4,
-          isAvailable: true,
-          category: "Categoria2",
-        },
-        {
-          id: 11,
-          name: "Stand11",
-          price: 100000,
-          numExpositors: 4,
-          isAvailable: false,
-          category: "Categoria3",
-        },
-        {
-          id: 12,
-          name: "Stand12",
-          price: 100000,
-          numExpositors: 4,
-          isAvailable: true,
-          category: "Categoria3",
-        },
-        {
-          id: 13,
-          name: "Stand13",
-          price: 100000,
-          numExpositors: 4,
-          isAvailable: true,
-          category: "Categoria3",
-        },
-        {
-          id: 14,
-          name: "Stand14",
-          price: 100000,
-          numExpositors: 5,
-          isAvailable: false,
-          category: "Categoria3",
-        },
-        {
-          id: 15,
-          name: "Stand15",
-          price: 100000,
-          numExpositors: 5,
-          isAvailable: true,
-          category: "Categoria3",
-        },
-        {
-          id: 16,
-          name: "Stand16",
-          price: 100000,
-          numExpositors: 5,
-          isAvailable: true,
-          category: "Categoria4",
-        },
-        {
-          id: 17,
-          name: "Stand17",
-          price: 200000,
-          numExpositors: 5,
-          isAvailable: true,
-          category: "Categoria4",
-        },
-        {
-          id: 18,
-          name: "Stand18",
-          price: 200000,
-          numExpositors: 7,
-          isAvailable: false,
-          category: "Categoria4",
-        },
-        {
-          id: 19,
-          name: "Stand19",
-          price: 200000,
-          numExpositors: 7,
-          isAvailable: true,
-          category: "Categoria4",
-        },
-        {
-          id: 20,
-          name: "Stand20",
-          price: 200000,
-          numExpositors: 7,
-          isAvailable: false,
-          category: "Categoria4",
-        },
-      ]);
+          category: category,
+        };
+
+        testStands.push(stand);
+      }
+      console.log(testStands);
+      await Stand.bulkCreate(testStands);
       console.log("Test Stand added succesfully");
       return;
     }
@@ -223,6 +98,7 @@ const initDb = async () => {
     await Fingerprint.sync();
     await Stand.sync();
     await Sale.sync();
+    await ClientStand.sync();
     await createRoles();
     await createTestStands();
     await createTestOperators();

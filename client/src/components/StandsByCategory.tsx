@@ -3,14 +3,10 @@ import { useParams } from "react-router-dom";
 import { Stand, getStandsByCategory } from "../utils/stands";
 import { StandCard } from "./StandCard";
 
-interface Props {
-  category: Stand["category"];
-}
-
 export const StandsByCategory: React.FC = () => {
   const { category } = useParams();
   const [stands, setStands] = useState<Array<Stand>>([]);
-  const _category = category ? category : "Categoria1";
+  const _category = category ? category : "S";
 
   const getStands = async () => {
     setStands(await getStandsByCategory(_category));

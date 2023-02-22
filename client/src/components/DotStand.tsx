@@ -29,7 +29,7 @@ export const DotStand: React.FC<Props> = ({ standId, position }) => {
     >
       {stand?.isAvailable ? (
         <Link
-          to={`/formStand/${stand.name}/${stand.price}/${stand.numExpositors}`}
+          to={`/formStand/${stand.name}/${stand.price}/${stand.numExpositors}/${stand.id}`}
         >
           <div className="dot green-dot">{standId}</div>
         </Link>

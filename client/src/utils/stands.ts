@@ -9,6 +9,12 @@ export interface Stand {
 
 interface CreateStand extends Omit<Stand, "id" | "isAvailable"> {}
 
+interface UpdateStand {
+  name?: string;
+  price?: number;
+  numExpositors?: number;
+}
+
 const baseUrl = "http://localhost:3001/stands";
 
 export const createNewStand = async (stand: CreateStand) => {
@@ -58,5 +64,30 @@ export const getStandById = async (standId: number) => {
     return data;
   } catch (e) {
     console.error(e);
+  }
+};
+
+export const updateStand = async (
+  standId: number,
+  updateFields: UpdateStand
+) => {
+  try {
+    const response = await fetch(`${baseUrl}/${standId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updateFields),
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(error);
+    }
+    const updatedStand = await response.json();
+    return updatedStand;
+  } catch (e) {
+    console.error(e);
+    throw new Error("Error updating Stand");
   }
 };

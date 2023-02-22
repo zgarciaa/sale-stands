@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Stand } from "../utils/stands";
 
@@ -7,7 +7,12 @@ interface Props {
 }
 
 export const StandCard: React.FC<Props> = ({ stand }) => {
-  const { id, name, price, numExpositors, isAvailable } = stand;
+  const { id, isAvailable } = stand;
+  //const { id, name, price, numExpositors, isAvailable } = stand;
+  const [isEditing, setIsEditing] = useState(false);
+  const [name, setName] = useState(stand.name);
+  const [price, setPrice] = useState(stand.price);
+  const [numExpositors, setNumExpositors] = useState(stand.numExpositors);
 
   return (
     <>
@@ -18,7 +23,7 @@ export const StandCard: React.FC<Props> = ({ stand }) => {
           <p className="card-text">Capacidad: {numExpositors}</p>
           <div className="d-flex justify-content-around">
             {isAvailable ? (
-              <Link to={`/formStand/${name}/${price}/${numExpositors}`}>
+              <Link to={`/formStand/${name}/${price}/${numExpositors}/${id}`}>
                 <button className="btn btn-primary">Venta</button>
               </Link>
             ) : (

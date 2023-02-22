@@ -8,6 +8,7 @@ const {
   getAllStands,
   getStandsByCategory,
   newStand,
+  standSold,
 } = require("../db/functions/stand");
 const {
   newOperator,
@@ -15,8 +16,16 @@ const {
   checkOperator,
 } = require("../db/functions/operator");
 const { createUser } = require("../db/functions/user");
+const {
+  newSale,
+  newClientStand,
+  getAllSales,
+} = require("../db/functions/sale");
+
+const { Stand } = require("../db/models");
 
 dotenv.config();
+
 const startApp = async () => {
   await initDb();
   const app = express();
@@ -124,6 +133,81 @@ const startApp = async () => {
     } catch (e) {
       console.error(e);
       res.status(500).json({ message: "Error creating User" });
+    }
+  });
+
+  app.post("/clients", async (req, res) => {
+    const clientStand = {
+      standId: req.body.standId,
+      documentClient: req.body.documentClient,
+      nameClient: req.body.nameClient,
+      lastNameClient: req.body.lastNameClient,
+      addressClient: req.body.addressClient,
+      phoneNumberClient: req.body.phoneNumberClient,
+      emailClient: req.body.emailClient,
+    };
+    try {
+      const clientStandCreated = await newClientStand(clientStand);
+      if (!clientStandCreated) {
+        res.status(500).json({ message: "Error creating Client Stand" });
+        return;
+      }
+      res.status(200).json({ message: "Client Stand created Succesfully" });
+    } catch (e) {
+      console.error(e);
+      res.status(500).json({ message: "Error creating Client Stand" });
+    }
+  });
+  app.get("/sales", async (req, res) => {
+    try {
+      const sales = await getAllSales();
+      res.json(sales.map((sale) => sale.toJSON()));
+    } catch (e) {
+      console.error(e);
+      res.status(500).json({ message: "Error retrieving Sales" });
+    }
+  });
+  app.post("/sales", async (req, res) => {
+    const saleStand = {
+      standId: req.body.standId,
+      documentClient: req.body.documentClient,
+      nameClient: req.body.nameClient,
+      lastNameClient: req.body.lastNameClient,
+      price: req.body.price,
+    };
+    try {
+      const _createSale = await newSale(saleStand);
+      if (!_createSale) {
+        res.status(500).json({ message: "Error creating Sale" });
+        return;
+      }
+      const standUpdated = await standSold(req.body.standId);
+      if (!standUpdated) {
+        res.status(500).json({ message: "Error updating Stand" });
+        return;
+      }
+      res.status(200).json({ message: "Sale created Succesfully" });
+    } catch (e) {
+      console.error(e);
+    }
+  });
+
+  app.put("/stands/:id", async (req, res) => {
+    try {
+      const stand = await Stand.findByPk(req.params.id);
+      if (!stand) {
+        return res.status(404).send("Stand no encontrado");
+      }
+      const updateFields = {
+        name: req.body.name || stand.name,
+        price: req.body.price || stand.price,
+        numExpositors: req.body.numExpositors || stand.numExpositors,
+      };
+      await stand.update(updateFields);
+      res.send(stand);
+    } catch (e) {
+      console.error(e);
+      res.status(500).send("Server Internal Error");
     }
   });
   app.listen(port, () => {

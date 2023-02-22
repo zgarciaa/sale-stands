@@ -24,7 +24,7 @@ export const Login: React.FC = () => {
       return;
     }
     alert("Inicio de Sesión exitoso");
-    navigate("/");
+    navigate("/stands");
   };
   return (
     <div className="container d-flex justify-content-center">

@@ -11,19 +11,21 @@ import { CreateStandForm } from "./components/CreateStandForm";
 import { MapStands } from "./components/MapStands";
 import { Login } from "./components/Login";
 import { RegisterUserForm } from "./components/RegisterUserForm";
+import { ListSales } from "./components/ListSales";
 
 const routes = (
   <Routes>
-    <Route path="/" element={<App />} />
+    <Route path="/" element={<Login />} />
+    <Route path="/stands" element={<App />} />
     <Route
-      path="/formStand/:name/:price/:numExpositors"
+      path="/formStand/:name/:price/:numExpositors/:standId"
       element={<SaleStandForm />}
     />
-    <Route path="/stands/:category" element={<StandsByCategory />} />
     <Route path="/createStand" element={<CreateStandForm />} />
-    <Route path="/mapStands" element={<MapStands />} />
-    <Route path="/login" element={<Login />} />
     <Route path="/registerUser" element={<RegisterUserForm />} />
+    <Route path="/stands/:category" element={<StandsByCategory />} />
+    <Route path="/mapStands" element={<MapStands />} />
+    <Route path="/sales" element={<ListSales />} />
   </Routes>
 );
 

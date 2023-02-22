@@ -37,6 +37,11 @@ const User = dbConnection.define("User", {
     primaryKey: true,
     autoIncrement: true,
   },
+  document: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    unique: true,
+  },
   name: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -102,17 +107,62 @@ const Sale = dbConnection.define("Sale", {
     primaryKey: true,
     autoIncrement: true,
   },
-  clientName: {
+  standId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    unique: true
+  },
+  documentClient: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  nameClient: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  clientLastName: {
+  lastNameClient: {
     type: DataTypes.STRING,
     allowNull: false,
   },
   price: {
     type: DataTypes.INTEGER,
     allowNull: false,
+  },
+});
+
+const ClientStand = dbConnection.define("ClientStand", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  standId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  documentClient: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  nameClient: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  lastNameClient: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  addressClient: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  phoneNumberClient: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  emailClient: {
+    type: DataTypes.STRING,
+    allowNull: true,
   },
 });
 
@@ -128,7 +178,15 @@ Fingerprint.belongsTo(User, { foreignKey: "ownerId" }); // Each fingerprint have
 User.belongsTo(Role, { foreignKey: "roleId" }); // Each user have one role
 Role.hasMany(User, { foreignKey: "roleId" }); // Each role can have many users
 
-Sale.belongsTo(Stand, { foreignKey: "standId", allowNull: true }); // Each Sale have one Stand
-Stand.hasMany(Sale, { foreignKey: "standId" }); //Each Stand have many Sales
+//ClientStand.belongsTo(Sale, { foreignKey: "standId" }); // Each Sale have one Stand
+//Sale.hasMany(ClientStand, { foreignKey: "standId" }); //Each Stand have many Sales
 
-module.exports = { Operator, Role, User, Fingerprint, Stand, Sale };
+module.exports = {
+  Operator,
+  Role,
+  User,
+  Fingerprint,
+  Stand,
+  Sale,
+  ClientStand,
+};

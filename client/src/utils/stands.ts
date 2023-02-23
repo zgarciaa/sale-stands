@@ -57,7 +57,9 @@ export const getStandsByCategory = async (
   }
 };
 
-export const getStandById = async (standId: number) => {
+export const getStandById = async (
+  standId: number
+): Promise<Stand | undefined> => {
   try {
     const response = await fetch(`${baseUrl}/${standId}`);
     const data = await response.json();

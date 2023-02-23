@@ -2,37 +2,9 @@ import React from "react";
 import mapUrl from "../../../client/stands_feria_buga.jpg";
 import "../utils/mapStands.css";
 import { DotStand } from "./DotStand";
+import { positions } from "../utils/map/positions";
 
 export const MapStands: React.FC = () => {
-  const p1 = { x: 737, y: 813 };
-  const p2 = { x: 767, y: 834 };
-  const p3 = { x: 831, y: 830 };
-  const p4 = { x: 830, y: 800 };
-  const p5 = { x: 897, y: 826 };
-  const p6 = { x: 450, y: 190 };
-  const p7 = { x: 751, y: 640 };
-  const p8 = { x: 624, y: 610 };
-  const p9 = { x: 644, y: 611 };
-  const p10 = { x: 637, y: 516 };
-  const p11 = { x: 450, y: 255 };
-  const p12 = { x: 554, y: 255 };
-  const p13 = { x: 691, y: 260 };
-  const p14 = { x: 815, y: 258 };
-  const p15 = { x: 949, y: 258 };
-  const p16 = { x: 554, y: 330 };
-  const p17 = { x: 691, y: 320 };
-  const p18 = { x: 815, y: 310 };
-
-  const standIsAvailable = (
-    isAvailable: boolean,
-    standNum: number
-  ): JSX.Element => {
-    return isAvailable ? (
-      <div className="green-dot">{standNum}</div>
-    ) : (
-      <div className="red-dot">{standNum}</div>
-    );
-  };
   return (
     <div className="container mt-5 position-relative">
       <div
@@ -45,16 +17,36 @@ export const MapStands: React.FC = () => {
           backgroundSize: "1600px 1120px",
         }}
       >
-        <DotStand standId={1} position={p1} />
-        <DotStand standId={2} position={p2} />
-        <DotStand standId={3} position={p3} />
-        <DotStand standId={4} position={p4} />
-        <DotStand standId={5} position={p5} />
-        {/*<DotStand standId={5} position={p6} />*/}
-        <DotStand standId={7} position={p7} />
-        <DotStand standId={8} position={p8} />
-        <DotStand standId={9} position={p9} />
-        <DotStand standId={10} position={p10} />
+        <DotStand standId={1} position={positions.p1} />
+        <DotStand standId={2} position={positions.p2} />
+        <DotStand standId={3} position={positions.p3} />
+        <DotStand standId={4} position={positions.p4} />
+        <DotStand standId={5} position={positions.p5} />
+        {/*<DotStand standId={6} position={positions.p6} />*/}
+        <DotStand standId={7} position={positions.p7} />
+        <DotStand standId={8} position={positions.p8} />
+        <DotStand standId={9} position={positions.p9} />
+        <DotStand standId={10} position={positions.p10} />
+        {/*<DotStand standId={11} position={positions.p11} />*/}
+        <DotStand standId={12} position={positions.p12} />
+        <DotStand standId={13} position={positions.p13} />
+        <DotStand standId={14} position={positions.p14} />
+        <DotStand standId={15} position={positions.p15} />
+        <DotStand standId={16} position={positions.p16} />
+        <DotStand standId={17} position={positions.p17} />
+        <DotStand standId={18} position={positions.p18} />
+        <DotStand standId={19} position={positions.p19} />
+        <DotStand standId={20} position={positions.p20} />
+        <DotStand standId={21} position={positions.p21} />
+        <DotStand standId={22} position={positions.p22} />
+        <DotStand standId={23} position={positions.p23} />
+        <DotStand standId={24} position={positions.p24} />
+        <DotStand standId={25} position={positions.p25} />
+        <DotStand standId={26} position={positions.p26} />
+        <DotStand standId={27} position={positions.p27} />
+        <DotStand standId={28} position={positions.p28} />
+        <DotStand standId={29} position={positions.p29} />
+        <DotStand standId={30} position={positions.p30} />
       </div>
     </div>
   );

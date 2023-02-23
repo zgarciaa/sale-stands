@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Sale, getAllSales } from "../utils/sales";
+import { getStandById } from "../utils/stands";
 
 export const ListSales: React.FC = () => {
   const [sales, setSales] = useState<Array<Sale>>();
+  const [standNames, setStandNames] = useState<Array<string>>([]);
+
+  const getStandName = async (standId: number): Promise<string> => {
+    const stand = await getStandById(standId);
+    return stand ? stand.name : "standName";
+  };
 
   const formatPrice = (price: number) => {
     return price.toLocaleString("es-CO", {
@@ -20,11 +27,20 @@ export const ListSales: React.FC = () => {
   };
 
   const getSales = async () => {
-    setSales(await getAllSales());
+    const salesData = await getAllSales();
+    setSales(salesData);
   };
 
   useEffect(() => {
     getSales();
+    const getStandsName = async () => {
+      const standIds = sales?.map((sale) => sale.standId) ?? [];
+      const standNames = await Promise.all(
+        standIds.map((standId) => getStandName(standId))
+      );
+      setStandNames(standNames);
+    };
+    getStandsName();
   }, [sales]);
 
   return (
@@ -86,14 +102,14 @@ export const ListSales: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {sales?.map((sale) => (
+                  {sales?.map((sale, index) => (
                     <tr key={sale.standId}>
                       <td className="p-3">{sale.nameClient}</td>
                       <td className="p-3">{sale.lastNameClient}</td>
                       <td className="p-3">
                         {formatDocument(sale.documentClient)}
                       </td>
-                      <td className="p-3">{sale.standId}</td>
+                      <td className="p-3">{standNames[index]}</td>
                       <td className="p-3">{formatPrice(sale.price)}</td>
                     </tr>
                   ))}

@@ -61,7 +61,7 @@ export const CreateStandForm: React.FC = () => {
             type="number"
             className="form-control form-control-lg"
             id="numExpositors"
-            placeholder="Ingrese la capacidad"
+            placeholder="Ingrese la Capacidad"
             name="numExpositors"
             value={numExpositors ? numExpositors : ""}
             onChange={(event) => setNumExpositors(parseInt(event.target.value))}

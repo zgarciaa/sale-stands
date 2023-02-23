@@ -10,9 +10,9 @@ export interface Stand {
 interface CreateStand extends Omit<Stand, "id" | "isAvailable"> {}
 
 interface UpdateStand {
-  name?: string;
-  price?: number;
-  numExpositors?: number;
+  name: string | null;
+  price: number | null;
+  numExpositors: number | null;
 }
 
 const baseUrl = "http://localhost:3001/stands";
@@ -85,7 +85,8 @@ export const updateStand = async (
       throw new Error(error);
     }
     const updatedStand = await response.json();
-    return updatedStand;
+    console.log(updatedStand);
+    return true;
   } catch (e) {
     console.error(e);
     throw new Error("Error updating Stand");

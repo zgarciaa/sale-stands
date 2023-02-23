@@ -14,7 +14,7 @@ export const StandsByCategory: React.FC = () => {
 
   useEffect(() => {
     getStands();
-  }, [_category]);
+  }, [stands]);
 
   return (
     <>

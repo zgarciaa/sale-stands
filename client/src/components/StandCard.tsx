@@ -3,17 +3,16 @@ import { Link } from "react-router-dom";
 import { Stand } from "../utils/stands";
 import imageUrl1 from "../../../stands/stand1.jpg";
 import imageUrl2 from "../../../stands/stand2.jpg";
+import { UpdateStandForm } from "./UpdateStandForm";
 
 interface Props {
   stand: Stand;
 }
 
 export const StandCard: React.FC<Props> = ({ stand }) => {
-  const { id, isAvailable } = stand;
-  const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState(stand.name);
-  const [price, setPrice] = useState(stand.price);
-  const [numExpositors, setNumExpositors] = useState(stand.numExpositors);
+  //const { id, isAvailable } = stand;
+  const [standState, setStand] = useState(stand);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [images, setImages] = useState([imageUrl1, imageUrl2]);
@@ -25,6 +24,18 @@ export const StandCard: React.FC<Props> = ({ stand }) => {
     }
   };
 
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleEdit = () => {
+    setIsModalOpen(true);
+  };
+
+  useEffect(() => {
+    setStand(stand);
+  }, [stand]);
+
   return (
     <>
       <div
@@ -34,17 +45,19 @@ export const StandCard: React.FC<Props> = ({ stand }) => {
         <img
           src={images[0]}
           className="card-img-top"
-          alt={`Imagen de ${name}`}
+          alt={`Imagen de ${standState.name}`}
           onClick={() => handleSetIsExpanded(true)}
           style={{ cursor: "pointer" }}
         />
         <div className="card-body">
-          <h5 className="card-title">{name}</h5>
-          <p className="card-text">Precio: ${price}</p>
-          <p className="card-text">Capacidad: {numExpositors}</p>
+          <h5 className="card-title">{standState.name}</h5>
+          <p className="card-text">Precio: ${standState.price}</p>
+          <p className="card-text">Capacidad: {standState.numExpositors}</p>
           <div className="d-flex justify-content-around">
-            {isAvailable ? (
-              <Link to={`/formStand/${name}/${price}/${numExpositors}/${id}`}>
+            {standState.isAvailable ? (
+              <Link
+                to={`/formStand/${standState.name}/${standState.price}/${standState.numExpositors}/${standState.id}`}
+              >
                 <button className="btn btn-primary">Venta</button>
               </Link>
             ) : (
@@ -52,12 +65,21 @@ export const StandCard: React.FC<Props> = ({ stand }) => {
                 Vendido
               </button>
             )}
-            <button className="btn btn-dark" onClick={() => setIsEditing(true)}>
+            <button className="btn btn-dark" onClick={handleEdit}>
               Editar
             </button>
           </div>
         </div>
       </div>
+      {isModalOpen && (
+        <UpdateStandForm
+          id={standState.id}
+          name={standState.name}
+          price={standState.price}
+          numExpositors={standState.numExpositors}
+          onClose={handleModalClose}
+        />
+      )}
       {isExpanded && (
         <div
           style={{
@@ -75,7 +97,7 @@ export const StandCard: React.FC<Props> = ({ stand }) => {
         >
           <img
             src={images[currentImageIndex]}
-            alt={`Imagen de ${name}`}
+            alt={`Imagen de ${standState.name}`}
             style={{ maxWidth: "80vw", maxHeight: "80vh" }}
           />
           <div

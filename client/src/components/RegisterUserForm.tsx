@@ -5,7 +5,7 @@ export const RegisterUserForm: React.FC = () => {
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [roleId, setRoleId] = useState("");
-
+  const [document, setDocument] = useState("");
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -16,6 +16,7 @@ export const RegisterUserForm: React.FC = () => {
     const newUser = {
       name: name,
       lastName: lastName,
+      document: parseInt(document) || null,
       roleId: parseInt(roleId),
     };
     const _newUser = await createNewUser(newUser);
@@ -32,14 +33,14 @@ export const RegisterUserForm: React.FC = () => {
   return (
     <div className="container d-flex justify-content-center">
       <form onSubmit={handleSubmit}>
-        <h1 className="text-center mt-5">Creación de Usuario</h1>
+        <h1 className="text-center mt-5">Registro de Visitante</h1>
         <div className="form-group mt-3">
           <label htmlFor="_name">Nombres:</label>
           <input
             type="text"
             className="form-control form-control-lg"
             id="_name"
-            placeholder="Ingrese nombres"
+            placeholder="Ingrese Nombres"
             name="_name"
             value={name}
             onChange={(event) => setName(event.target.value)}
@@ -58,8 +59,20 @@ export const RegisterUserForm: React.FC = () => {
           />
         </div>
         <div className="form-group mt-3">
+          <label htmlFor="document">Documento:</label>
+          <input
+            type="number"
+            className="form-control form-control-lg"
+            id="document"
+            placeholder="Ingrese el documento (opcional)"
+            name="document"
+            value={document}
+            onChange={(event) => setDocument(event.target.value)}
+          />
+        </div>
+        <div className="form-group mt-3">
           <label htmlFor="role" className="mb-1">
-            Rol del Usuario:
+            Tipo de Visitante:
           </label>
           <select
             className="form-select form-select-lg form-select-arrow"
@@ -69,19 +82,26 @@ export const RegisterUserForm: React.FC = () => {
             onChange={(event) => setRoleId(event.target.value)}
           >
             <option value="" disabled>
-              Seleccione un Rol
+              Seleccione Tipo
             </option>
-            <option value="1">Cliente Stand</option>
-            <option value="2">Expositor</option>
             <option value="3">Trabajador</option>
             <option value="4">Socio</option>
             <option value="5">Prensa</option>
             <option value="6">Cortesia</option>
           </select>
         </div>
+        <div className="form-group mt-3">
+          <label htmlFor="fingerprint">Huella Digital:</label>
+          <button
+            className="btn btn-dark ms-2"
+            onClick={() => alert("Escaneando Huella Dactilar")}
+          >
+            Escanear Huella Digital
+          </button>
+        </div>
         <div className="text-center mt-4">
           <button type="submit" className="btn btn-primary">
-            Registrar Nuevo Usuario
+            Registrar Visitante
           </button>
         </div>
       </form>

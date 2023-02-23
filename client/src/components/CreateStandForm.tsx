@@ -37,7 +37,7 @@ export const CreateStandForm: React.FC = () => {
             type="text"
             className="form-control form-control-lg"
             id="_name"
-            placeholder="Ingrese el nombre"
+            placeholder="Ingrese el Nombre"
             name="_name"
             value={name}
             onChange={(event) => setName(event.target.value)}
@@ -49,19 +49,19 @@ export const CreateStandForm: React.FC = () => {
             type="number"
             className="form-control form-control-lg"
             id="value"
-            placeholder="Ingrese el valor"
+            placeholder="Ingrese el Valor"
             name="value"
             value={price ? price : ""}
             onChange={(event) => setPrice(parseInt(event.target.value))}
           />
         </div>
         <div className="form-group mt-3">
-          <label htmlFor="numExpositors">Número de Expositores:</label>
+          <label htmlFor="numExpositors">Capacidad de Expositores:</label>
           <input
             type="number"
             className="form-control form-control-lg"
             id="numExpositors"
-            placeholder="Ingrese el número de expositores"
+            placeholder="Ingrese la capacidad"
             name="numExpositors"
             value={numExpositors ? numExpositors : ""}
             onChange={(event) => setNumExpositors(parseInt(event.target.value))}

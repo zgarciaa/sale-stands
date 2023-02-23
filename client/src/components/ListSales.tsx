@@ -4,6 +4,21 @@ import { Sale, getAllSales } from "../utils/sales";
 export const ListSales: React.FC = () => {
   const [sales, setSales] = useState<Array<Sale>>();
 
+  const formatPrice = (price: number) => {
+    return price.toLocaleString("es-CO", {
+      style: "currency",
+      currency: "COP",
+      maximumFractionDigits: 0,
+    });
+  };
+
+  const formatDocument = (document: number) => {
+    return document.toLocaleString("es-CO", {
+      style: "decimal",
+      useGrouping: true,
+    });
+  };
+
   const getSales = async () => {
     setSales(await getAllSales());
   };
@@ -11,6 +26,7 @@ export const ListSales: React.FC = () => {
   useEffect(() => {
     getSales();
   }, [sales]);
+
   return (
     <>
       <h1 className="text-center my-5">Listado de Ventas</h1>
@@ -71,9 +87,9 @@ export const ListSales: React.FC = () => {
               <tr key={sale.standId}>
                 <td className="p-3">{sale.nameClient}</td>
                 <td className="p-3">{sale.lastNameClient}</td>
-                <td className="p-3">{sale.documentClient}</td>
+                <td className="p-3">{formatDocument(sale.documentClient)}</td>
                 <td className="p-3">{sale.standId}</td>
-                <td className="p-3">$ {sale.price}</td>
+                <td className="p-3">{formatPrice(sale.price)}</td>
               </tr>
             ))}
           </tbody>

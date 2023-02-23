@@ -125,6 +125,7 @@ const startApp = async () => {
     const user = {
       name: req.body.name,
       lastName: req.body.lastName,
+      document: req.body.document,
       roleId: req.body.roleId,
     };
     try {

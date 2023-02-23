@@ -1,6 +1,7 @@
 interface User {
   name: string;
   lastName: string;
+  document: number | null;
   roleId: number;
 }
 
